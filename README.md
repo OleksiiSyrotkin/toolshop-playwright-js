@@ -22,7 +22,7 @@ HTML report from the latest run on `main`: https://oleksiisyrotkin.github.io/too
 - Node.js 20+
 - Playwright Test (UI + `APIRequestContext` for API)
 - ESLint with `eslint-plugin-playwright`
-- GitHub Actions + GitHub Pages for the report
+- GitHub Actions (API tests) + GitHub Pages for the report
 
 ## Project structure
 
@@ -90,7 +90,9 @@ These are public demo credentials from the Toolshop site.
 `.github/workflows/playwright.yml`:
 
 1. installs dependencies, runs ESLint
-2. installs Chromium, runs all projects (4 workers, 1 retry)
+2. runs the `api` project (4 workers, 1 retry)
 3. uploads HTML report as an artifact and publishes it to GitHub Pages (only from `main`)
 
 Runs on push to `main`, on pull requests, manually and every Monday.
+
+UI tests (`setup` + `ui` projects) are not run in CI: practicesoftwaretesting.com shows a Cloudflare "Verify you are human" page to GitHub Actions runners, so the browser never gets to the app. UI tests are run locally (`npm run test:ui`).
